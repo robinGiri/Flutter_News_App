@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:newsapp/helper/News.dart';
 import 'package:newsapp/helper/data.dart';
 import 'package:newsapp/model/Articles_model.dart';
 import 'package:newsapp/model/Categories_model.dart';
 import 'package:newsapp/views/Article.dart';
+import 'package:newsapp/views/Categories.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -99,12 +101,19 @@ class _HomeState extends State<Home> {
 }
 
 class CategoryTiles extends StatelessWidget {
-  final imageUrl, categoryName;
+  final String imageUrl, categoryName;
   CategoryTiles({this.imageUrl, this.categoryName});
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Categories(
+                      categoryName.toLowerCase(),
+                    )));
+      },
       child: Container(
         margin: EdgeInsets.only(right: 16),
         child: Stack(
