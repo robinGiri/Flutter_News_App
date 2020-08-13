@@ -12,15 +12,17 @@ class News {
     var jsonData = jsonDecode(response.body);
     if (jsonData['status'] == 'ok') {
       jsonData['articles'].forEach((element) {
-        ArticlesModel articlesModel = ArticlesModel(
-          title: element['title'],
-          author: element['author'],
-          description: element['description'],
-          url: element['url'],
-          urlToImage: element['urlToImage'],
-          content: element['content'],
-        );
-        news.add(articlesModel);
+        if (element['url'] != null && element['description'] != null) {
+          ArticlesModel articlesModel = ArticlesModel(
+            title: element['title'],
+            author: element['author'],
+            description: element['description'],
+            url: element['url'],
+            urlToImage: element['urlToImage'],
+            content: element['content'],
+          );
+          news.add(articlesModel);
+        }
       });
     }
   }
