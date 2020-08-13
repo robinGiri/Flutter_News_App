@@ -1,3 +1,4 @@
+import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -17,12 +18,20 @@ class _HomeState extends State<Home> {
   List<CategoriesModel> category = new List<CategoriesModel>();
   List<ArticlesModel> articles = new List<ArticlesModel>();
   bool _loading = true;
+  int currentIndex;
 
   @override
   void initState() {
     super.initState();
+    currentIndex = 0;
     category = getCategories();
     getNews();
+  }
+
+  void changePage(int index) {
+    setState(() {
+      currentIndex = index;
+    });
   }
 
   getNews() async {
@@ -96,6 +105,69 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.add),
+        backgroundColor: Colors.red,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      bottomNavigationBar: BubbleBottomBar(
+        hasNotch: true,
+        fabLocation: BubbleBottomBarFabLocation.end,
+        opacity: .2,
+        currentIndex: currentIndex,
+        onTap: changePage,
+        borderRadius: BorderRadius.vertical(
+            top: Radius.circular(
+                16)), //border radius doesn't work when the notch is enabled.
+        elevation: 8,
+        items: <BubbleBottomBarItem>[
+          BubbleBottomBarItem(
+              backgroundColor: Colors.red,
+              icon: Icon(
+                Icons.dashboard,
+                color: Colors.black,
+              ),
+              activeIcon: Icon(
+                Icons.dashboard,
+                color: Colors.red,
+              ),
+              title: Text("Home")),
+          BubbleBottomBarItem(
+              backgroundColor: Colors.deepPurple,
+              icon: Icon(
+                Icons.access_time,
+                color: Colors.black,
+              ),
+              activeIcon: Icon(
+                Icons.access_time,
+                color: Colors.deepPurple,
+              ),
+              title: Text("Categories")),
+          BubbleBottomBarItem(
+              backgroundColor: Colors.indigo,
+              icon: Icon(
+                Icons.folder_open,
+                color: Colors.black,
+              ),
+              activeIcon: Icon(
+                Icons.folder_open,
+                color: Colors.indigo,
+              ),
+              title: Text("Country")),
+          BubbleBottomBarItem(
+              backgroundColor: Colors.green,
+              icon: Icon(
+                Icons.menu,
+                color: Colors.black,
+              ),
+              activeIcon: Icon(
+                Icons.menu,
+                color: Colors.green,
+              ),
+              title: Text("Newsapi"))
+        ],
+      ),
     );
   }
 }
