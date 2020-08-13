@@ -1,13 +1,10 @@
-import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:newsapp/helper/News.dart';
 import 'package:newsapp/helper/data.dart';
 import 'package:newsapp/model/Articles_model.dart';
 import 'package:newsapp/model/Categories_model.dart';
-import 'package:newsapp/views/Article.dart';
-import 'package:newsapp/views/Categories.dart';
+import 'package:newsapp/widget/BlogTile.dart';
+import 'package:newsapp/widget/CategoryTile.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -15,23 +12,16 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<CategoriesModel> category = new List<CategoriesModel>();
   List<ArticlesModel> articles = new List<ArticlesModel>();
+  List<CategoriesModel> category = new List<CategoriesModel>();
+
   bool _loading = true;
-  int currentIndex;
 
   @override
   void initState() {
     super.initState();
-    currentIndex = 0;
     category = getCategories();
     getNews();
-  }
-
-  void changePage(int index) {
-    setState(() {
-      currentIndex = index;
-    });
   }
 
   getNews() async {
@@ -71,192 +61,67 @@ class _HomeState extends State<Home> {
                 child: Column(
                   children: [
                     // categories
-                    Container(
-                      height: 70,
-                      child: ListView.builder(
-                        itemCount: category.length,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return CategoryTiles(
-                            categoryName: category[index].categoryName,
-                            imageUrl: category[index].categoryURL,
-                          );
-                        },
-                      ),
-                    ),
-
+                    Categories(category: category),
                     // Article
-                    Container(
-                      padding: EdgeInsets.only(top: 16),
-                      child: ListView.builder(
-                          itemCount: articles.length,
-                          shrinkWrap: true,
-                          physics: ClampingScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            return BlogTile(
-                                description: articles[index].description,
-                                title: articles[index].title,
-                                url: articles[index].url,
-                                imageURL: articles[index].urlToImage);
-                          }),
-                    )
+                    Articles(articles: articles)
                   ],
                 ),
               ),
             ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Icon(Icons.add),
-        backgroundColor: Colors.red,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-      bottomNavigationBar: BubbleBottomBar(
-        hasNotch: true,
-        fabLocation: BubbleBottomBarFabLocation.end,
-        opacity: .2,
-        currentIndex: currentIndex,
-        onTap: changePage,
-        borderRadius: BorderRadius.vertical(
-            top: Radius.circular(
-                16)), //border radius doesn't work when the notch is enabled.
-        elevation: 8,
-        items: <BubbleBottomBarItem>[
-          BubbleBottomBarItem(
-              backgroundColor: Colors.red,
-              icon: Icon(
-                Icons.dashboard,
-                color: Colors.black,
-              ),
-              activeIcon: Icon(
-                Icons.dashboard,
-                color: Colors.red,
-              ),
-              title: Text("Home")),
-          BubbleBottomBarItem(
-              backgroundColor: Colors.deepPurple,
-              icon: Icon(
-                Icons.access_time,
-                color: Colors.black,
-              ),
-              activeIcon: Icon(
-                Icons.access_time,
-                color: Colors.deepPurple,
-              ),
-              title: Text("Categories")),
-          BubbleBottomBarItem(
-              backgroundColor: Colors.indigo,
-              icon: Icon(
-                Icons.folder_open,
-                color: Colors.black,
-              ),
-              activeIcon: Icon(
-                Icons.folder_open,
-                color: Colors.indigo,
-              ),
-              title: Text("Country")),
-          BubbleBottomBarItem(
-              backgroundColor: Colors.green,
-              icon: Icon(
-                Icons.menu,
-                color: Colors.black,
-              ),
-              activeIcon: Icon(
-                Icons.menu,
-                color: Colors.green,
-              ),
-              title: Text("Newsapi"))
-        ],
+    );
+  }
+}
+
+class Categories extends StatefulWidget {
+  final List category;
+  Categories({this.category});
+  @override
+  _CategoriesState createState() => _CategoriesState();
+}
+
+class _CategoriesState extends State<Categories> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 70,
+      child: ListView.builder(
+        itemCount: widget.category.length,
+        shrinkWrap: true,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          return CategoryTiles(
+            categoryName: widget.category[index].categoryName,
+            imageUrl: widget.category[index].categoryURL,
+          );
+        },
       ),
     );
   }
 }
 
-class CategoryTiles extends StatelessWidget {
-  final String imageUrl, categoryName;
-  CategoryTiles({this.imageUrl, this.categoryName});
+class Articles extends StatefulWidget {
+  final List articles;
+  Articles({this.articles});
   @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => Categories(
-                      categoryName.toLowerCase(),
-                    )));
-      },
-      child: Container(
-        margin: EdgeInsets.only(right: 16),
-        child: Stack(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(6),
-              child: CachedNetworkImage(
-                imageUrl: imageUrl,
-                width: 120,
-                height: 60,
-                fit: BoxFit.cover,
-              ),
-            ),
-            Container(
-              width: 120,
-              height: 60,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(6),
-                  color: Colors.black26),
-              child: Text(
-                categoryName,
-                style: TextStyle(color: Colors.white),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
+  _ArticlesState createState() => _ArticlesState();
 }
 
-class BlogTile extends StatelessWidget {
-  final String imageURL, title, url, description;
-  BlogTile(
-      {@required this.imageURL,
-      @required this.title,
-      @required this.url,
-      @required this.description});
-
+class _ArticlesState extends State<Articles> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Articles(url)));
-      },
-      child: Container(
-        padding: EdgeInsets.only(bottom: 16),
-        child: Column(
-          children: [
-            ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.network(imageURL)),
-            SizedBox(
-              height: 8,
-            ),
-            Text(
-              title,
-              style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black87,
-                  fontWeight: FontWeight.w600),
-            ),
-            Text(
-              description,
-              style: TextStyle(color: Colors.black45),
-            )
-          ],
-        ),
-      ),
+    return Container(
+      padding: EdgeInsets.only(top: 16),
+      child: ListView.builder(
+          itemCount: widget.articles.length,
+          shrinkWrap: true,
+          physics: ClampingScrollPhysics(),
+          itemBuilder: (context, index) {
+            return BlogTile(
+                description: widget.articles[index].description,
+                title: widget.articles[index].title,
+                url: widget.articles[index].url,
+                imageURL: widget.articles[index].urlToImage);
+          }),
     );
   }
 }
