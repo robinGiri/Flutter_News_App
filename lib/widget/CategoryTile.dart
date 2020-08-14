@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:newsapp/views/Categories.dart';
+import 'package:newsapp/views/CategoriesView.dart';
 
 class CategoryTiles extends StatelessWidget {
   final String imageUrl, categoryName;
@@ -24,14 +24,14 @@ class CategoryTiles extends StatelessWidget {
               borderRadius: BorderRadius.circular(6),
               child: CachedNetworkImage(
                 imageUrl: imageUrl,
-                width: 120,
-                height: 60,
+                width: 420,
+                height: 100,
                 fit: BoxFit.cover,
               ),
             ),
             Container(
-              width: 120,
-              height: 60,
+              width: 420,
+              height: 100,
               alignment: Alignment.center,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(6),

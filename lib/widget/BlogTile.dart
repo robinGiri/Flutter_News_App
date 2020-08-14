@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:newsapp/views/Article.dart';
+import 'package:newsapp/views/ArticleView.dart';
 import 'package:flutter/foundation.dart';
 
 class BlogTile extends StatelessWidget {
