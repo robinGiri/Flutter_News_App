@@ -33,28 +33,27 @@ class _CategoriesState extends State<Categories> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              "News For",
-              style:
-                  TextStyle(color: Colors.black87, fontWeight: FontWeight.w600),
-            ),
-            Text(
-              "Today",
-              style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w600),
-            )
-          ],
+        title: TweenAnimationBuilder(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('News For'),
+              Text(
+                'Today',
+                style: TextStyle(color: Colors.blue),
+              )
+            ],
+          ),
+          tween: Tween<double>(begin: 0, end: 1),
+          duration: Duration(milliseconds: 500),
+          builder: (BuildContext context, double _val, Widget child) {
+            return Opacity(
+              opacity: _val,
+              child: Padding(
+                  padding: EdgeInsets.only(top: _val * 20), child: child),
+            );
+          },
         ),
-        actions: <Widget>[
-          Container(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Icon(
-                Icons.share,
-              ))
-        ],
-        backgroundColor: Colors.transparent,
         elevation: 0.0,
       ),
       body: _loading

@@ -51,15 +51,26 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('News For'),
-              Text(
-                'Today',
-                style: TextStyle(color: Colors.blue),
-              )
-            ],
+          title: TweenAnimationBuilder(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('News For'),
+                Text(
+                  'Today',
+                  style: TextStyle(color: Colors.blue),
+                )
+              ],
+            ),
+            tween: Tween<double>(begin: 0, end: 1),
+            duration: Duration(milliseconds: 500),
+            builder: (BuildContext context, double _val, Widget child) {
+              return Opacity(
+                opacity: _val,
+                child: Padding(
+                    padding: EdgeInsets.only(top: _val * 20), child: child),
+              );
+            },
           ),
           elevation: 0.0,
         ),
