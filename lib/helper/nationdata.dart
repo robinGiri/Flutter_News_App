@@ -1,60 +1,56 @@
 import 'package:newsapp/model/Nations_model.dart';
 
-List<NationsModel> getCategories() {
+List<NationsModel> getNations() {
   List<NationsModel> nation = new List<NationsModel>();
   NationsModel nationsModel = new NationsModel();
 
-  nationsModel.nationsName = 'joke';
-  nationsModel.nationsURL =
-      'https://images.pexels.com/photos/3673523/pexels-photo-3673523.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500';
-
   //1
   nationsModel = new NationsModel();
-  nationsModel.nationsName = "Business";
+  nationsModel.nationsName = "USA";
   nationsModel.nationsURL =
-      "https://images.unsplash.com/photo-1507679799987-c73779587ccf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1502&q=80";
+      "https://images.pexels.com/photos/1093645/pexels-photo-1093645.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260";
   nation.add(nationsModel);
 
   //2
   nationsModel = new NationsModel();
-  nationsModel.nationsName = "Entertainment";
+  nationsModel.nationsName = "India";
   nationsModel.nationsURL =
-      "https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80";
+      "https://images.pexels.com/photos/3699921/pexels-photo-3699921.jpeg?cs=srgb&dl=pexels-still-pixels-3699921.jpg&fm=jpg";
   nation.add(nationsModel);
 
   //3
   nationsModel = new NationsModel();
-  nationsModel.nationsName = "General";
+  nationsModel.nationsName = "China";
   nationsModel.nationsURL =
-      "https://images.unsplash.com/photo-1495020689067-958852a7765e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60";
+      "https://images.pexels.com/photos/1486577/pexels-photo-1486577.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940";
   nation.add(nationsModel);
 
   //4
   nationsModel = new NationsModel();
-  nationsModel.nationsName = "Health";
+  nationsModel.nationsName = "Australia";
   nationsModel.nationsURL =
-      "https://images.unsplash.com/photo-1494390248081-4e521a5940db?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1595&q=80";
+      "https://images.pexels.com/photos/2193300/pexels-photo-2193300.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940";
   nation.add(nationsModel);
 
   //5
   nationsModel = new NationsModel();
-  nationsModel.nationsName = "Science";
+  nationsModel.nationsName = "New Zealand";
   nationsModel.nationsURL =
-      "https://images.unsplash.com/photo-1554475901-4538ddfbccc2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1504&q=80";
+      "https://images.pexels.com/photos/2030683/pexels-photo-2030683.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940";
   nation.add(nationsModel);
 
   //5
   nationsModel = new NationsModel();
-  nationsModel.nationsName = "Sports";
+  nationsModel.nationsName = "Russia";
   nationsModel.nationsURL =
-      "https://images.unsplash.com/photo-1495563923587-bdc4282494d0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80";
+      "https://images.pexels.com/photos/236294/pexels-photo-236294.jpeg?cs=srgb&dl=pexels-pixabay-236294.jpg&fm=jpg";
   nation.add(nationsModel);
 
   //5
   nationsModel = new NationsModel();
-  nationsModel.nationsName = "Technology";
+  nationsModel.nationsName = "South Korea";
   nationsModel.nationsURL =
-      "https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80";
+      "https://images.pexels.com/photos/2849042/pexels-photo-2849042.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940";
   nation.add(nationsModel);
 
   nationsModel = new NationsModel();

@@ -4,10 +4,6 @@ List<CategoriesModel> getCategories() {
   List<CategoriesModel> category = new List<CategoriesModel>();
   CategoriesModel categoriesModel = new CategoriesModel();
 
-  categoriesModel.categoryName = 'joke';
-  categoriesModel.categoryURL =
-      'https://images.pexels.com/photos/3673523/pexels-photo-3673523.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500';
-
   //1
   categoriesModel = new CategoriesModel();
   categoriesModel.categoryName = "Business";

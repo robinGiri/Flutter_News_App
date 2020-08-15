@@ -2,6 +2,7 @@ import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:newsapp/helper/News.dart';
 import 'package:newsapp/helper/data.dart';
+import 'package:newsapp/helper/nationdata.dart';
 import 'package:newsapp/model/Articles_model.dart';
 import 'package:newsapp/model/Categories_model.dart';
 import 'package:newsapp/model/Nations_model.dart';
@@ -27,6 +28,7 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     category = getCategories();
+    nations = getNations();
     getNews();
   }
 
@@ -146,14 +148,14 @@ class _HomeState extends State<Home> {
                   Icons.menu,
                   color: Colors.green,
                 ),
-                title: Text("Newsapi"))
+                title: Text("Google"))
           ],
         ));
   }
 }
 
 class NewsApi extends StatefulWidget {
-  final String newsapi = "https://newsapi.org/";
+  final String newsapi = "https://google.com/";
   @override
   _NewsApiState createState() => _NewsApiState();
 }
