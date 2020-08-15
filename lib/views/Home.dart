@@ -8,6 +8,8 @@ import 'package:newsapp/model/Nations_model.dart';
 import 'package:newsapp/widget/Articles.dart';
 import 'package:newsapp/widget/Categories.dart';
 import 'package:newsapp/widget/Nations.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+import 'dart:async';
 
 class Home extends StatefulWidget {
   @override
@@ -76,9 +78,13 @@ class _HomeState extends State<Home> {
                             ? Column(
                                 children: [Categories(category: category)],
                               )
-                            : Column(
-                                children: [Nations(nations: nations)],
-                              )),
+                            : currentIndex == 2
+                                ? Column(
+                                    children: [Nations(nations: nations)],
+                                  )
+                                : Column(
+                                    children: [NewsApi()],
+                                  )),
               ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {},
@@ -93,8 +99,8 @@ class _HomeState extends State<Home> {
           currentIndex: currentIndex,
           onTap: changePage,
           borderRadius: BorderRadius.vertical(
-              top: Radius.circular(
-                  16)), //border radius doesn't work when the notch is enabled.
+            top: Radius.circular(16),
+          ),
           elevation: 8,
           items: <BubbleBottomBarItem>[
             BubbleBottomBarItem(
@@ -143,5 +149,29 @@ class _HomeState extends State<Home> {
                 title: Text("Newsapi"))
           ],
         ));
+  }
+}
+
+class NewsApi extends StatefulWidget {
+  final String newsapi = "https://newsapi.org/";
+  @override
+  _NewsApiState createState() => _NewsApiState();
+}
+
+final Completer<WebViewController> _controller = Completer<WebViewController>();
+
+class _NewsApiState extends State<NewsApi> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
+      child: WebView(
+          initialUrl: widget.newsapi,
+          javascriptMode: JavascriptMode.unrestricted,
+          onWebViewCreated: (WebViewController webViewController) {
+            _controller.complete(webViewController);
+          }),
+    );
   }
 }
